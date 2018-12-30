@@ -1,23 +1,30 @@
 <?php 
     session_start();
-
+    
     include 'dbconfig.php';
 
     if(!isset($_SESSION['loginid'])){
         header("Location: login.php");
     }
 
-    $questionID = $_SESSION['quiztime']; //get ID from the listing page to query them again here
+    $timestarted = $_SESSION['timestarted'];
+    $timeended = time();
+    $userid = $_SESSION['loginid'];
+    $questionid = $_SESSION['quiztime']; 
 
     $mysqli = new mysqli($hostname, $username, $password, $dbname, $port) or die(mysqli_error($mysqli));
 
-    $quizDetailsSQL = "SELECT * FROM questions WHERE id = $questionID";
+    $recordSQL = "INSERT INTO learner_record (userid, wordid, timestarted, timended) VALUES('$userid', '$questionid', '$timestarted', '$timeended')";
+    $mysqli->query($recordSQL) or die($mysqli->error);
+
+    $quizDetailsSQL = "SELECT * FROM questions WHERE id = $questionid";
     $quizDetailsResult = mysqli_query($mysqli, $quizDetailsSQL);
     $row = mysqli_fetch_assoc($quizDetailsResult);
     $quizWord = $row['word'];
     $quizMeaning = $row['meaning'];
 
-    $quizRandomAnswerSQL = "SELECT * FROM questions WHERE NOT(id = $questionID) ORDER BY rand() LIMIT 1";
+    //handle fetching 3 random answers
+    $quizRandomAnswerSQL = "SELECT * FROM questions WHERE NOT(id = $questionid) ORDER BY rand() LIMIT 1";
     $randomOne = mysqli_query($mysqli, $quizRandomAnswerSQL);
     $rowRandomOne = mysqli_fetch_assoc($randomOne);
     $randomAnswerOne = $rowRandomOne['meaning'];
@@ -31,14 +38,12 @@
     $randomAnswerThree = $rowRandomThree['meaning'];
 
     if (isset($_POST['submit'])){
-    
         $answer = $_POST['answer'];
         if ($answer == 'correct') {
             header("Location: randomword.php");
         } else {
             header("Location: sad.php");
         }
-
     }
 ?>
 

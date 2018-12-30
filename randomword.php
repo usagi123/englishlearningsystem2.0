@@ -94,6 +94,7 @@
                 $row = mysqli_fetch_assoc($aloha);
                 $pos = $row['id'];
                 $_SESSION['quiztime'] = $row['id'];
+                $_SESSION['timestarted'] = time();
                 $fetchedword = $row['word'];
 
                 if (isset($_POST['compare'])) {
