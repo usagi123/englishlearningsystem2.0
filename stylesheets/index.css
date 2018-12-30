@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css?family=Sarabun');
+
+.custom-nav {
+  padding-top: 5px;
+}
+
+.navbar {
+  margin-bottom: 0;
+  background-color: transparent;
+  z-index: 9999;
+  border: 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  letter-spacing: 1px;
+  border-radius: 0;
+  font-family: 'Sarabun', sans-serif;
+  font-weight: 600;
+  -webkit-transition: all 0.6s ease-out;
+  -moz-transition: all 0.6s ease-out;
+  -o-transition: all 0.6s ease-out;
+  -ms-transition: all 0.6s ease-out;
+  transition: all 0.6s ease-out;
+  
+}
+
+.navbar li a, .navbar .navbar-brand {
+  color: white !important;
+
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+  color: rgb(43, 193, 223) !important;
+}
+
+.navbar li ul {
+  list-style-type: none;
+  margin: 0;
+  text-align: center;
+  margin-top: 10%;
+  display: inline;
+  padding-top: 10px;
+}
+
+.navbar ul li {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+.navbar li a {
+  position: relative;
+  text-decoration: none;
+}
+
+.navbar li a, .navbar .navbar-brand {
+  color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+  color: rgb(43, 193, 223) !important;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: transparent;
+  color: #fff !important;
+}
+
+.navbar li a:before, navbar li a:after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: rgb(43, 193, 223) !important;
+}
+
+a:before {
+  opacity: 0;
+  -webkit-transform: translateY(-8px);
+          transform: translateY(-8px);
+  transition: opacity 0s, -webkit-transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s;
+  transition: transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s, -webkit-transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+a:after {
+  opacity: 0;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+  transition: opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+a:hover:before, a:hover:after, a:focus:before, a:focus:after {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+a:hover:before, a:focus:before {
+  transition: opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+a:hover:after, a:focus:after {
+  transition: opacity 0s 0.2s, -webkit-transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s 0.2s;
+  transition: transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s 0.2s, -webkit-transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.navbar.scrolled {
+  background: rgb(68, 68, 68); /* IE */
+  background: rgba(0, 0, 0, 0.78); /* NON-IE */
+}
+
+.aloha {
+  height: 50vh;
+  background-color: black;
+  color: #fff;
+  font-family: 'Sarabun', sans-serif;
+  background: linear-gradient(
+                   rgba(20,20,20, .5), 
+                   rgba(20,20,20, .5)),
+                   url(https://i.imgur.com/UaS5wUs.png?1);
+  background-size: cover;
+}
+
+.aloha li {
+  display: inline;
+}
+
+.banana {
+  color: #fff;
+  font-family: 'Sarabun', sans-serif;
+  background: linear-gradient(
+                   rgba(20,20,20, .5), 
+                   rgba(20,20,20, .5));
+}
+
+.banana li {
+  display: inline;
+  padding: 10px;
+}
+
+.bg-primary {
+  background-color: #005B96 !important;
+}
+
+.custom-title {
+  background-color: rgb(245,245,245);
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.custom-title h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: left;
+  color: #4ec8ff;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.bg-primary {
+  background-color: #005B96 !important;
+}
+
+.bg-dark {
+  background-color: #212529 !important;
+}
+
+.bg-dark h5 {
+  font-family: 'Sarabun', sans-serif;
+  color: white;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.bg-dark a {
+  color: white;
+  text-decoration: none;
+}
+
+.bg-dark a:hover {
+  color: rgb(43, 193, 223);
+}
+
+.transition-from-header {
+  padding-top: 10px;
+}
+
+.borderBottom {
+  padding-top: 20px;
+  border-bottom: #cdcdcd thin solid;
+  width: 100%;
+}
+
+.left-title {
+  padding-top: 30px;
+  padding-bottom: 10px;
+  border-right: #cdcdcd thin solid;
+}
+
+.left-title h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: left;
+  color: #4ec8ff;
+  font-family: 'Sarabun', sans-serif;
+  padding-bottom: 10px;
+}
+
+.left-title p {
+  text-align: left;
+  color: #949494;
+  font: 'Fira Sans', sans-serif;
+  font-size: 16px;
+}
+
+.left-title h3 {
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-align: left;
+  font-family: 'Sarabun', sans-serif;
+  color: #4ec8ff;
+}
+
+.right-title {
+  padding-top: 30px;
+}
+
+.right-title h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: left;
+  color: #4ec8ff;
+  font-family: 'Sarabun', sans-serif;
+  padding-bottom: 10px;
+  padding-left: 30px;
+}
+
+.right-title h3 {
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-align: left;
+  font-family: 'Sarabun', sans-serif;
+  color: #4ec8ff;
+}
+
+.right-title p {
+  text-align: left;
+  color: #949494;
+  font: 'Fira Sans', sans-serif;
+  font-size: 16px;
+}
+
+#read-more {
+  text-align: right;
+  padding-right: 40px;
+}
+
+#read-more a {
+  text-decoration: none;
+}
+
+#read-more a:hover {
+  color: rgb(43, 193, 223) !important;
+}
+
+.post-preview {
+  padding-bottom: 30px;
+}
+
+.extra-padding-bottom-10px {
+  padding-bottom: 10px
+}
+
+.btn-outline-info.continue-reading {
+  color: #4ec8ff;
+  border-color: #4ec8ff;
+}
+
+.btn-outline-info.continue-reading:hover {
+  color: #ffffff;
+  border-color: #4ec8ff;
+  background-color: #4ec8ff;
+}
+
+.btn-outline-info.continue-reading:active {
+  color: #ffffff;
+  border-color: #4ec8ff;
+  background-color: #4ec8ff;
+}
+
+.btn-outline-info.continue-reading:focus {
+  color: #ffffff;
+  border-color: #4ec8ff;
+  background-color: #4ec8ff;
+}
+
+.btn-info.continue-reading {
+  color: #ffffff;
+  border-color: #4ec8ff;
+  background-color: #4ec8ff;
+}
+
+.right-button {
+  text-align: right;
+}

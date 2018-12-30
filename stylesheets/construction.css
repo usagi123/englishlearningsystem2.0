@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body, html {
+    width: 100vw;
+    height: 100vh;
+    background-position: center bottom;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    background-color: #fbfbfb;
+}
+
+.masthead {
+    min-height: 30rem;
+    position: relative;
+    display: table;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 1;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.social-media-box{
+    height: 32px;
+}
+
+.social-media-box a{
+    text-decoration: none;
+    color: #000000;
+    background-color: none;
+}
+
+.tooltip-inner {
+    max-width: 100% !important;
+    /* If max-width does not work, try using width instead */
+}
+
+.fa-at:hover{
+    color: #6ed8d1
+}
+
+.fa-twitter:hover{
+    color: #00aced
+}
+
+.fa-reddit-alien:hover{
+    color: #FF4500
+}
+
+.fa-youtube:hover{
+    color: #ea1919
+}
+
+.fa-skype:hover{
+    color: #00aced
+}
+
+.fa-discord:hover{
+    color: #3061b2
+}
+
+.fa-stack-overflow:hover{
+    color: #FF9900
+}
+
+.fa-github:hover{
+    color: #767676
+}
+
+.fa-steam:hover{
+    color: #18376b
+}
+
+/* Side Menu */
+
+.overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2;
+    display: none;
+}
+
+#sidebar-wrapper {
+    position: fixed;
+    z-index: 3;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    overflow-x: auto;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+    transform: translateX(250px);
+    background: #ffffff;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+  
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+  
+.sidebar-nav li.sidebar-nav-item a {
+    display: block;
+    text-decoration: none;
+    color: #000000;
+    padding: 15px;
+}
+
+.credit {
+    font-size: 12px;
+    padding: 0 15px 15px 15px
+}
+  
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #000000;
+    background: rgba(99, 92, 92, 0.2);
+}
+  
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+  
+.sidebar-nav > .sidebar-brand {
+    font-size: 1.2rem;
+    background: #ffffff;
+    height: 80px;
+    line-height: 50px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+}
+
+.sidebar-brand h2{
+      color: #000000;
+}
+  
+.sidebar-nav > .sidebar-brand a {
+    color: #fff;
+}
+  
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+  }
+  
+#sidebar-wrapper.active {
+    right: 250px;
+    width: 250px;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+  
+.menu-toggle {
+    position: fixed;
+    right: 15px;
+    top: 15px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    color: #fff;
+    background: rgba(52, 58, 64, 0.5);
+    line-height: 50px;
+    z-index: 999;
+}
+  
+.menu-toggle:focus, .menu-toggle:hover {
+    color: #fff;
+}
+  
+.menu-toggle:hover {
+    background: #343a40;
+}
