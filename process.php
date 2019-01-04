@@ -37,6 +37,7 @@ if (isset($_POST['save'])){
         
         $_SESSION['message'] = "Record has been saved!";
         $_SESSION['msg_type'] = "success";
+
         
         header("location: listing.php");
     }    
