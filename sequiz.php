@@ -42,7 +42,7 @@
         if ($answer == 'correct') {
             header("Location: sequence.php");
         } else {
-            header("Location: sad.php");
+            header("Location: sequiz.php");
         }
     }
 ?>
@@ -59,30 +59,28 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
     <body>
-
-        What does <?php echo $quizWord; ?> means?
-        <form action="" method="POST">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline1" name="answer" value="<?php echo "correct"; ?>" class="custom-control-input">
-                <label class="custom-control-label" for="customRadioInline1"><?php echo $quizMeaning; ?></label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline2" name="answer" value="<?php echo "wrong"; ?>" class="custom-control-input">
-                <label class="custom-control-label" for="customRadioInline2"><?php echo $randomAnswerOne; ?></label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline3" name="answer" value="<?php echo "wrong"; ?>" class="custom-control-input">
-                <label class="custom-control-label" for="customRadioInline3"><?php echo $randomAnswerTwo; ?></label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline4" name="answer" value="<?php echo "wrong"; ?>" class="custom-control-input">
-                <label class="custom-control-label" for="customRadioInline4"><?php echo $randomAnswerThree; ?></label>
-            </div>
-            <button type="submit" class="btn btn-outline-primary" name="submit">Submit your answer</button>
-        </form>
-        
-        
-        
+        <div class="container text-center">
+            What does <?php echo $quizWord; ?> means?
+            <form action="" method="POST">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="answer" value="<?php echo "correct"; ?>" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline1"><?php echo $quizMeaning; ?></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="answer" value="<?php echo "wrong"; ?>" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2"><?php echo $randomAnswerOne; ?></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline3" name="answer" value="<?php echo "wrong"; ?>" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline3"><?php echo $randomAnswerTwo; ?></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline4" name="answer" value="<?php echo "wrong"; ?>" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline4"><?php echo $randomAnswerThree; ?></label>
+                </div>
+                <button type="submit" class="btn btn-outline-primary" name="submit">Submit your answer</button>
+            </form>
+        </div>        
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

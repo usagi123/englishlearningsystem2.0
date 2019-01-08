@@ -3,6 +3,8 @@
 
     include 'dbconfig.php';
 
+    $_SESSION['timestarted'] = time();
+
     $mysqli = new mysqli($hostname, $username, $password, $dbname, $port) or die(mysqli_error($mysqli));
 
     //count number of rows in questions database
@@ -22,83 +24,155 @@
     }
     $wordrow = mysqli_fetch_array($wordresult);
     $_SESSION['sequiztime'] = $wordrow['id'];
-    echo $wordrow['word'];
-    // echo $wordrow['meaning'];
-    // echo $wordrow['similar'];
-    // echo $wordrow['eone'];
-    // echo $wordrow['etwo'];
     if (isset($_POST['forward'])){
-        // if ($_SESSION['aloha'] < $numberofrows) {
-
-                $_SESSION['aloha'] = $_SESSION['aloha'] + 1;
-                if ($_SESSION['clickedTimes']== NULL) {
-                    $_SESSION['clickedTimes'] = 1;
-                } else if ($_SESSION['clickedTimes'] <  $numberofrows-1) {
-                    $_SESSION['clickedTimes'] = $_SESSION['clickedTimes'] + 1;
-                } else if ($_SESSION['clickedTimes'] >= $numberofrows-1) {
-                    $_SESSION['aloha'] = NULL;
-                    $_SESSION['clickedTimes'] = NULL;
-                }
-                header("Location: sequence.php");
-            
-           
-
-        // } 
-        // else {
-        //     $_SESSION['aloha'] = 1;
-        //     header("Location: sequence.php");
-        // }
+        $_SESSION['aloha'] = $_SESSION['aloha'] + 1;
+        if ($_SESSION['clickedTimes']== NULL) {
+            $_SESSION['clickedTimes'] = 1;
+        } else if ($_SESSION['clickedTimes'] <  $numberofrows-1) {
+            $_SESSION['clickedTimes'] = $_SESSION['clickedTimes'] + 1;
+        } else if ($_SESSION['clickedTimes'] >= $numberofrows-1) {
+            $_SESSION['aloha'] = NULL;
+            $_SESSION['clickedTimes'] = NULL;
+        }
+        header("Location: sequencequiz.php");
     }
-
-
-    // if ($_SESSION['clickedtime'] == null) { //count button clicked time
-    //     $_SESSION['clickedtime'] = 0;
-    // }
-
-    // if ($_SESSION['idsession'] == null){ //count id
-    //     $_SESSION['idsession'] = 1;
-    // }
-
-    // $mysession = $_SESSION['idsession'];
-    // $wordresult = $mysqli->query("SELECT * FROM questions WHERE id = $mysession");
-    // if (mysqli_num_rows($wordresult) == 0) {
-    //     $_SESSION['idsession'] = $_SESSION['idsession'] + 1;
-    //     header("Location: sequence.php"); 
-    // }
-
-    // $wordrow = mysqli_fetch_array($wordresult);
-    // echo $wordrow['word'];
-    // if (isset($_POST['forward'])){
-    //     $_SESSION['clickedtime'] = $_SESSION['clickedtime'] + 1;
-    //     $_SESSION['idsession'] = $_SESSION['idsession'] + 1;
-    //     if ($_SESSION['clickedtime'] > $numberofrows-1) {
-    //         $_SESSION['clickedtime'] = 1;
-    //         $_SESSION['idsession'] = 1;
-    //     }
-    // }
 ?>
 
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Title</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+        <link rel="stylesheet" href="./stylesheets/index.css">
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script>
+            window.onscroll = function() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("myNav").style.background = "linear-gradient(rgba(20,20,20, .6), rgba(20,20,20, .5))";
+                    document.getElementById("myNav").style.transition = "background 2s ease 0s";
+                } else {
+                    document.getElementById("myNav").style.background = "transparent";
+                }
+            };
+        </script>
+        <title>English Learning System</title>
     </head>
     <body>
-        <form action="" method="POST">
+        <div class="aloha">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="myNav">
+                <div class="container custom-nav">
+                    <a href="index.php" class="navbar-brand">English Learning System</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar7">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse justify-content-stretch" id="navbar7">
+                        <ul class="navbar-nav ml-auto">
+                            <!-- when admin login -->
+                            <?php if($_SESSION['level'] == 1):?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.php">Home</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link " href="<?php $_SESSION['mode']; ?>">Learning words</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="listing.php">Listing</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="addnew.php">Add new</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="logout.php">Logout</a>
+                                </li>
+                            <!-- when user login -->
+                            <?php else: ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.php">Home</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link " href="<?php $_SESSION['mode']; ?>">Learning words</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="userlisting.php">All words</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="logout.php">Logout</a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
 
-            <button type="submit" class="btn btn-outline-primary" name="forward">Next word</button>
-        </form>
+        <div class="container-fluid custom-title">
+            <div class="container">
+                <h1>Sequence learning mode</h1>
+            </div>
+        </div>
+
+        <div class="extra-padding-bottom-10px"></div>
+        <div class="extra-padding-bottom-10px"></div>
+            
+        <div class="container">   
+            <?php
+                $mysqli = new mysqli($hostname, $username, $password, $dbname, $port) or die(mysqli_error($mysqli));
+                $sqlcompare = "SELECT * FROM questions ORDER BY rand() limit 1";
+                $aloha = mysqli_query($mysqli, $sqlcompare);
+
+                $row = mysqli_fetch_assoc($aloha);
+                $pos = $row['id'];
+                $_SESSION['quiztime'] = $row['id'];
+                $_SESSION['timestarted'] = time();
+                $fetchedword = $row['word'];
+
+                if (isset($_POST['compare'])) {
+                    $input = $mysqli->real_escape_string($_POST['input']); 
+                    $sqlcheck = "SELECT * FROM questions WHERE word LIKE '%".$input."%' AND id = $pos";
+                    $sqlresult = mysqli_query($mysqli, $sqlcheck);
+                    if (mysqli_num_rows($sqlresult) > 0) {
+                        header("Location: sad.php");
+                    } else {
+                        header("Location: congrat.php");
+                    }
+                }
+            ?>
+
+            <div class="text-right">
+                <form action="" method="POST">
+                    <button type="submit" class="btn btn-outline-info continue-reading" name="randomword">Random learning</button>
+                </form>
+                <?php 
+                    if (isset($_POST['randomword'])){
+                        $_SESSION['mode'] = 'randomword.php';
+                        header("Location: randomword.php");
+                    }
+                ?>
+            </div> 
+
+            <div class="row text-center transition-from-header">
+                <div class="col-md-12 cliente right-title"> 
+                    <h3>Word: <span style="color: #000000"><?php echo $wordrow['word']?></span> </h3> 
+                    <h3>Meaning: <span style="color: #000000"><?php echo $wordrow['meaning']?></span></h3>
+                    <h3>Similar word: <span style="color: #000000"><?php echo $wordrow['similar']?></span></h3>
+                    <h3>Example 1: <span style="color: #000000"><?php echo $wordrow['eone']?></span></h3> 
+                    <h3>Example 2: <span style="color: #000000"><?php echo $wordrow['etwo']?></span></h3> 
+                </div>
+            </div>
+
+        <div class="extra-padding-bottom-10px"></div>
+
+            <div class="text-center">
+                <form action="" method="POST">
+                    <button type="submit" class="btn btn-outline-info continue-reading" name="forward">Next word</button>
+                </form>
+            </div>
+
+        <div class="extra-padding-bottom-10px"></div>
+
+        </div>
         
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    </body>
-</html>
+<?php include('includes/footer.php'); ?>    

@@ -47,7 +47,7 @@
                                     <a class="nav-link" href="index.php">Home</a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="randomword.php">Learning</a>
+                                    <a class="nav-link " href="<?php $_SESSION['mode']; ?>">Learning words</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="listing.php">Listing</a>
@@ -64,7 +64,7 @@
                                     <a class="nav-link" href="index.php">Home</a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="randomword.php">Learning</a>
+                                    <a class="nav-link " href="<?php $_SESSION['mode']; ?>">Learning words</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="userlisting.php">All words</a>
@@ -81,9 +81,12 @@
 
         <div class="container-fluid custom-title">
             <div class="container">
-                <h1>Random view word</h1>
+                <h1>Random learning word</h1>
             </div>
         </div>
+
+        <div class="extra-padding-bottom-10px"></div>
+        <div class="extra-padding-bottom-10px"></div>
             
         <div class="container">
             <?php
@@ -108,7 +111,18 @@
                     }
                 }
             ?>
-            <div class="extra-padding-bottom-10px"></div>
+
+            <div class="text-right">
+                <form action="" method="POST">
+                    <button type="submit" class="btn btn-outline-info continue-reading" name="sequencemode">Sequence learning</button>
+                </form>
+                <?php 
+                    if (isset($_POST['sequencemode'])){
+                        $_SESSION['mode'] = 'sequence.php';
+                        header("Location: sequence.php");
+                    }
+                ?>
+            </div>  
 
             <div class="row text-center transition-from-header">
                 <div class="col-md-12 cliente right-title"> 
@@ -119,69 +133,14 @@
                     <h3>Example 2: <span style="color: #000000"><?php echo $row['etwo']?></span></h3> 
                 </div>
             </div>
-
-            <div class="extra-padding-bottom-10px"></div>
-
-            <div class="container">
-                <form method="POST">
-                    <div class="row">
-                        <div class="col-5">
-                            <input type="text" class="form-control" name="input" id="transcript" placeholder="Check your pronounciation" />
-                        </div>
-                        <div class="col-3">
-                            <button value="Start talking" onClick="startDictation()" type="button" class="btn btn-outline-info continue-reading">Record</button>
-                            <button type="submit" method="POST" class="btn btn-outline-info continue-reading" name="compare">Submit</button>
-                        </div>
-                        <div class="col">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <?php 
-                
-            ?>
-        </div>
-            
-        <div class="extra-padding-bottom-10px"></div>
-        <div class="extra-padding-bottom-10px"></div>
-            <div class="text-center">
-                <!-- <button value="Refresh Page" onClick="window.location.reload()" type="button" class="btn btn-outline-info continue-reading">Learn new word</button> -->
-                <a href="quiz.php" value="Quiz time" class="btn btn-outline-info continue-reading">Quiz time</a>
-            </div>
-            
         </div>
 
         <div class="extra-padding-bottom-10px"></div>
-        <div class="extra-padding-bottom-10px"></div>
-        <div class="extra-padding-bottom-10px"></div>
-        <div class="extra-padding-bottom-10px"></div>
-        <div class="extra-padding-bottom-10px"></div>
 
-        <script>
-            function startDictation() {
-                if (window.hasOwnProperty('webkitSpeechRecognition')) {
-            
-                    var recognition = new webkitSpeechRecognition();
-            
-                    recognition.continuous = false;
-                    recognition.interimResults = false;
-            
-                    recognition.lang = "en-US";
-                    recognition.start();
-            
-                    recognition.onresult = function(e) {
-                    document.getElementById('transcript').value
-                                            = e.results[0][0].transcript;
-                    recognition.stop();
-                    // document.getElementById('result').submit();
-                    };
-            
-                    recognition.onerror = function(e) {
-                    recognition.stop();
-                    }
-            
-                }
-            }
-        </script>
+        <div class="text-center">
+            <a href="quiz.php" value="Quiz time" class="btn btn-outline-info continue-reading">Next word</a>
+        </div>
+
+        <div class="extra-padding-bottom-10px"></div>
 
 <?php include('includes/footer.php'); ?>    
