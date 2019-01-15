@@ -8,9 +8,10 @@
     $mysqli = new mysqli($hostname, $username, $password, $dbname, $port) or die(mysqli_error($mysqli));
 
     //count number of rows in questions database
-    $countrowresult = $mysqli->query("SELECT count(0) FROM questions") or die($mysqli->error);
+    $countrowresult = $mysqli->query("SELECT COUNT(*) FROM questions") or die($mysqli->error);
     $countrow = mysqli_fetch_array($countrowresult);
     $numberofrows = $countrow[0];
+    $_SESSION['numberofrows'] = $numberofrows;
     
     // select one word at a time based on id
     if ($_SESSION['aloha'] == null) {
@@ -28,7 +29,7 @@
         $_SESSION['aloha'] = $_SESSION['aloha'] + 1;
         if ($_SESSION['clickedTimes']== NULL) {
             $_SESSION['clickedTimes'] = 1;
-        } else if ($_SESSION['clickedTimes'] <  $numberofrows-1) {
+        } else if ($_SESSION['clickedTimes'] < $numberofrows-1) {
             $_SESSION['clickedTimes'] = $_SESSION['clickedTimes'] + 1;
         } else if ($_SESSION['clickedTimes'] >= $numberofrows-1) {
             $_SESSION['aloha'] = NULL;
@@ -142,15 +143,9 @@
             ?>
 
             <div class="text-right">
-                <form action="" method="POST">
-                    <button type="submit" class="btn btn-outline-info continue-reading" name="randomword">Random learning</button>
+                <form action="randomword.php" method="POST">
+                    <button type="submit" class="btn btn-outline-info continue-reading" name="">Random learning</button>
                 </form>
-                <?php 
-                    if (isset($_POST['randomword'])){
-                        $_SESSION['mode'] = 'randomword.php';
-                        header("Location: randomword.php");
-                    }
-                ?>
             </div> 
 
             <div class="row text-center transition-from-header">

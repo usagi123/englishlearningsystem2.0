@@ -54,3 +54,10 @@ function startDictation() {
 
     }
 }
+
+function buttondelay() {
+    alert( "delayed" );
+}
+var delay = 1000;
+setTimeout( myfunction, delay )
+

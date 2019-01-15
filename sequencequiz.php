@@ -1,50 +1,75 @@
 <?php 
-  session_start();
-  
-  include 'dbconfig.php';
+    session_start();
+    
+    include 'dbconfig.php';
 
-  if(!isset($_SESSION['loginid'])){
-      header("Location: login.php");
-  }
+    if(!isset($_SESSION['loginid'])){
+        header("Location: login.php");
+    }
 
-  $timestarted = $_SESSION['timestarted'];
-  $timeended = time();
-  $userid = $_SESSION['loginid'];
-  $questionid = $_SESSION['sequiztime']; 
+    $timestarted = $_SESSION['timestarted'];
+    $timeended = time();
+    $userid = $_SESSION['loginid'];
+    $questionid = $_SESSION['sequiztime']; 
 
-  $mysqli = new mysqli($hostname, $username, $password, $dbname, $port) or die(mysqli_error($mysqli));
+    $mysqli = new mysqli($hostname, $username, $password, $dbname, $port) or die(mysqli_error($mysqli));
 
-  $recordSQL = "INSERT INTO learner_record (userid, wordid, timestarted, timended) VALUES('$userid', '$questionid', '$timestarted', '$timeended')";
-  $mysqli->query($recordSQL) or die($mysqli->error);
+    $recordSQL = "INSERT INTO learner_record (userid, wordid, timestarted, timended) VALUES('$userid', '$questionid', '$timestarted', '$timeended')";
+    $mysqli->query($recordSQL) or die($mysqli->error);
 
-  $quizDetailsSQL = "SELECT * FROM questions WHERE id = $questionid";
-  $quizDetailsResult = mysqli_query($mysqli, $quizDetailsSQL);
-  $row = mysqli_fetch_assoc($quizDetailsResult);
-  $quizWord = $row['word'];
-  $quizMeaning = $row['meaning'];
+    $quizDetailsSQL = "SELECT * FROM questions WHERE id = $questionid";
+    $quizDetailsResult = mysqli_query($mysqli, $quizDetailsSQL);
+    $row = mysqli_fetch_assoc($quizDetailsResult);
+    $quizId = $row['id'];
+    $quizWord = $row['word'];
+    $quizMeaning = $row['meaning'];
 
-  //handle fetching 3 random answers
-  $quizRandomAnswerSQL = "SELECT * FROM questions WHERE NOT(id = $questionid) ORDER BY rand() LIMIT 1";
-  $randomOne = mysqli_query($mysqli, $quizRandomAnswerSQL);
-  $rowRandomOne = mysqli_fetch_assoc($randomOne);
-  $randomAnswerOne = $rowRandomOne['meaning'];
+    $array = array();
+    array_push($array, $quizMeaning);
+    $array_repeat_id = array();
+    array_push($array_repeat_id, $quizId);
 
-  $randomTwo = mysqli_query($mysqli, $quizRandomAnswerSQL);
-  $rowRandomTwo = mysqli_fetch_assoc($randomTwo);
-  $randomAnswerTwo = $rowRandomTwo['meaning'];
+    //handle fetching 3 random answers
+    for ($i = 1; $i <= 3; $i++){
+        $id_except = implode(",", $array_repeat_id);
+        $quizRandomAnswerSQL = "SELECT * FROM questions having id NOT IN ($id_except) ORDER BY RAND() LIMIT 1";
+        $random = mysqli_query($mysqli, $quizRandomAnswerSQL);
+        $rowRandom = mysqli_fetch_assoc($random);
+        $randomId = $rowRandom['id'];
+        $randomAnswer = $rowRandom['meaning'];
+        array_push($array, $randomAnswer);
+        array_push($array_repeat_id, $randomId);
+    }
 
-  $randomThree = mysqli_query($mysqli, $quizRandomAnswerSQL);
-  $rowRandomThree = mysqli_fetch_assoc($randomThree);
-  $randomAnswerThree = $rowRandomThree['meaning'];
+    // $randomOne = mysqli_query($mysqli, $quizRandomAnswerSQL);
+    // $rowRandomOne = mysqli_fetch_assoc($randomOne);
+    // $randomAnswerOne = $rowRandomOne['meaning'];
 
-  if (isset($_POST['submit'])){
-      $answer = $_POST['answer'];
-      if ($answer == 'correct') {
-          header("Location: sequence.php");
-      } else {
-          header("Location: sequencequiz.php");
-      }
-  }
+    // $randomTwo = mysqli_query($mysqli, $quizRandomAnswerSQL);
+    // $rowRandomTwo = mysqli_fetch_assoc($randomTwo);
+    // $randomAnswerTwo = $rowRandomTwo['meaning'];
+
+    // $randomThree = mysqli_query($mysqli, $quizRandomAnswerSQL);
+    // $rowRandomThree = mysqli_fetch_assoc($randomThree);
+    // $randomAnswerThree = $rowRandomThree['meaning'];
+
+    // array_push($array, $quizMeaning, $randomAnswerOne, $randomAnswerTwo, $randomAnswerThree);
+    shuffle($array);
+
+    $numberofrows = $_SESSION['numberofrows'];
+
+    if (isset($_POST['submit'])){
+        $answer = (string) $_POST['answer'];
+        if ($answer == $quizMeaning) {
+            header("Location: sequence.php");
+        } else if ($answer == $quizMeaning && $_SESSION['clickedTimes'] > $numberofrows-1) {
+            $_SESSION['aloha'] = NULL;
+            $_SESSION['clickedTimes'] = NULL;
+            header("Location: sequence.php");
+        } else {
+            header("Location: sequencequiz.php");
+        }
+    }
 ?>
 
 <!doctype html>
@@ -130,20 +155,20 @@
             <h3>What does <?php echo $quizWord; ?> means?</h3>
             <form action="" method="POST">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline1" name="answer" value="<?php echo "correct"; ?>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadioInline1"><?php echo $quizMeaning; ?></label>
+                    <input type="radio" id="customRadioInline1" name="answer" value="<?php echo $array[0]; ?>" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline1"><?php echo $array[0]; ?></label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline2" name="answer" value="<?php echo "wrong"; ?>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadioInline2"><?php echo $randomAnswerOne; ?></label>
+                    <input type="radio" id="customRadioInline2" name="answer" value="<?php echo $array[1]; ?>" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2"><?php echo $array[1]; ?></label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline3" name="answer" value="<?php echo "wrong"; ?>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadioInline3"><?php echo $randomAnswerTwo; ?></label>
+                    <input type="radio" id="customRadioInline3" name="answer" value="<?php $array[2]; ?>" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline3"><?php echo $array[2]; ?></label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline4" name="answer" value="<?php echo "wrong"; ?>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadioInline4"><?php echo $randomAnswerThree; ?></label>
+                    <input type="radio" id="customRadioInline4" name="answer" value="<?php echo $array[3]; ?>" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline4"><?php echo $array[3]; ?></label>
                 </div>
                 <button type="submit" class="btn btn-outline-info continue-reading" name="submit">Submit your answer</button>
             </form>

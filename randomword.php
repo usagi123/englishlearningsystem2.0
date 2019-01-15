@@ -91,37 +91,29 @@
         <div class="container">
             <?php
                 $mysqli = new mysqli($hostname, $username, $password, $dbname, $port) or die(mysqli_error($mysqli));
+
+                $prevquestionid = $_SESSION['prevquiztime'];
+
                 $sqlcompare = "SELECT * FROM questions ORDER BY rand() limit 1";
-                $aloha = mysqli_query($mysqli, $sqlcompare);
+                $sqlcompare1 = "SELECT * FROM questions WHERE NOT (id = $prevquestionid) ORDER BY rand() limit 1";
+
+                if (!empty($prevquestionid)) {
+                    $aloha = mysqli_query($mysqli, $sqlcompare1);
+                } else {
+                    $aloha = mysqli_query($mysqli, $sqlcompare);
+                }
 
                 $row = mysqli_fetch_assoc($aloha);
                 $pos = $row['id'];
                 $_SESSION['quiztime'] = $row['id'];
                 $_SESSION['timestarted'] = time();
                 $fetchedword = $row['word'];
-
-                if (isset($_POST['compare'])) {
-                    $input = $mysqli->real_escape_string($_POST['input']); 
-                    $sqlcheck = "SELECT * FROM questions WHERE word LIKE '%".$input."%' AND id = $pos";
-                    $sqlresult = mysqli_query($mysqli, $sqlcheck);
-                    if (mysqli_num_rows($sqlresult) > 0) {
-                        header("Location: sad.php");
-                    } else {
-                        header("Location: congrat.php");
-                    }
-                }
             ?>
 
             <div class="text-right">
-                <form action="" method="POST">
-                    <button type="submit" class="btn btn-outline-info continue-reading" name="sequencemode">Sequence learning</button>
+                <form action="sequence.php" method="POST">
+                    <button type="submit" class="btn btn-outline-info continue-reading" name="">Sequence learning</button>
                 </form>
-                <?php 
-                    if (isset($_POST['sequencemode'])){
-                        $_SESSION['mode'] = 'sequence.php';
-                        header("Location: sequence.php");
-                    }
-                ?>
             </div>  
 
             <div class="row text-center transition-from-header">
