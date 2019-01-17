@@ -64,6 +64,9 @@
                                 <?php endif; ?>
                             </li>
                             <li class="nav-item">
+                                    <a class="nav-link" href="learner_record.php">Learner records</a>
+                                </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="logout.php">Logout</a>
                             </li>
                         <!-- when user login -->

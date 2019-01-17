@@ -23,6 +23,7 @@ For user account:
         - quiz: php: After press next to learn next word, user will have to do the quiz to test what they have learned. 
     - sequence.php: I allow admin to see this page for admin to tweak their page. This page will display a single word take from start to the end list of word from database.
         - sequencequiz.php: After press next to learn next word, user will have to do the quiz to test what they have learned. 
+- Learner record - learner_record.php: Display data users when they access learning (random and sequence). It will display user id, word id, time started, time ended.
 - Logout - logout.php: logout 
 
 AWS Lambda: 

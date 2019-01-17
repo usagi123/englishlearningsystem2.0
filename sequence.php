@@ -14,7 +14,7 @@
     $_SESSION['numberofrows'] = $numberofrows;
     
     // select one word at a time based on id
-    if ($_SESSION['aloha'] == null) {
+    if ($_SESSION['aloha'] == NULL) {
         $_SESSION['aloha'] = 1;
     }
     $mysession = $_SESSION['aloha'];
@@ -29,13 +29,15 @@
         $_SESSION['aloha'] = $_SESSION['aloha'] + 1;
         if ($_SESSION['clickedTimes']== NULL) {
             $_SESSION['clickedTimes'] = 1;
+            header("Location: sequencequiz.php");
         } else if ($_SESSION['clickedTimes'] < $numberofrows-1) {
             $_SESSION['clickedTimes'] = $_SESSION['clickedTimes'] + 1;
+            header("Location: sequencequiz.php");
         } else if ($_SESSION['clickedTimes'] >= $numberofrows-1) {
             $_SESSION['aloha'] = NULL;
             $_SESSION['clickedTimes'] = NULL;
+            header("Location: sequencequiz.php");
         }
-        header("Location: sequencequiz.php");
     }
 ?>
 
@@ -84,6 +86,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="addnew.php">Add new</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="learner_record.php">Learner records</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="logout.php">Logout</a>

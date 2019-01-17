@@ -54,6 +54,9 @@
                                     <a class="nav-link" href="addnew.php">Add new</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="learner_record.php">Learner records</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="logout.php">Logout</a>
                                 </li>
                             <!-- when user login -->
@@ -104,6 +107,7 @@
                                 - sequencequiz.php: After press next to learn next word, user will have to do the quiz to test what they have learned. <br>
                         - Listing - listing.php: list all words out <br>
                         - Add new - addnew.php: use the same form to handle both add new and update entity, based on the situation the title and navlink will change <br>
+                        - Learner record - learner_record.php: Display data users when they access learning (random and sequence). It will display user id, word id, time started, time ended. </br>
                         - Logout - logout.php: logout <br>
 
                         For user account: <br>

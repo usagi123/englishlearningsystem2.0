@@ -51,11 +51,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="randomword.php">Learning</a>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="listing.php">Listing</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="addnew.php">Add new</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="learner_record.php">Learner records</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="logout.php">Logout</a>

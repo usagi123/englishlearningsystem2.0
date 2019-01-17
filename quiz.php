@@ -61,8 +61,10 @@
         if ($answer == $quizMeaning) {
             $_SESSION['prevquiztime'] = $questionid;
             header("Location: randomword.php");
+            exit();
         } else {
             header("Location: quiz.php");
+            exit();
         }
     }
 

@@ -62,12 +62,15 @@
         $answer = (string) $_POST['answer'];
         if ($answer == $quizMeaning) {
             header("Location: sequence.php");
+            exit();
         } else if ($answer == $quizMeaning && $_SESSION['clickedTimes'] > $numberofrows-1) {
             $_SESSION['aloha'] = NULL;
             $_SESSION['clickedTimes'] = NULL;
             header("Location: sequence.php");
+            exit();
         } else {
             header("Location: sequencequiz.php");
+            exit();
         }
     }
 ?>
