@@ -1,4 +1,5 @@
-Student ID: s3618861 && s3480522 
+Student ID: s3618861 && s3480522
+Deployed link: https://maiphamquanghuy.com/
 Credentials:
     - Admin user: admin - admin
     - Normal user: user - user 
