@@ -118,15 +118,22 @@
                                 <th>WordID</th>
                                 <th>Time started</th>
                                 <th>Time ended</th>
+                                <th>Total time</th>
                             </tr>
                         </thead>
-                <?php while ($row = $result->fetch_assoc()): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
-                           <td><?php echo $row['id']; ?></td>
-                           <td><?php echo $row['userid']; ?></td>
-                           <td><?php echo $row['wordid']; ?></td>
-                           <td><?php echo date("d-m-Y h:i:s",$row['timestarted']); ?></td>
-                           <td><?php echo date("d-m-Y h:i:s",$row['timended']); ?></td>
+                            <?php 
+                                $timestarted = $row['timestarted'];
+                                $timeended = $row['timended'];
+                                $totaltime = $timeended - $timestarted;
+                            ?>
+                            <td><?php echo $row['id']; ?></td>
+                            <td><?php echo $row['userid']; ?></td>
+                            <td><?php echo $row['wordid']; ?></td>
+                            <td><?php echo date("d-m-Y h:i:s", $timestarted); ?></td>
+                            <td><?php echo date("d-m-Y h:i:s", $timeended); ?></td>
+                            <td><?php echo date("i:s", $totaltime); ?></td>
                         </tr>
                     <?php endwhile; ?>    
                     </table>
