@@ -77,7 +77,7 @@
                                     <a class="nav-link" href="index.php">Home</a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link " href="<?php $_SESSION['mode']; ?>">Learning words</a>
+                                    <a class="nav-link " href="<?php $_SESSION['mode']; ?>">Learning</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="listing.php">Listing</a>
@@ -94,7 +94,7 @@
                                     <a class="nav-link" href="index.php">Home</a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link " href="<?php $_SESSION['mode']; ?>">Learning words</a>
+                                    <a class="nav-link " href="<?php $_SESSION['mode']; ?>">Learning</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="userlisting.php">All words</a>

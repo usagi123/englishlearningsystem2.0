@@ -3,7 +3,7 @@
     <div class="extra-padding-bottom-10px"></div>
     <div class="extra-padding-bottom-10px"></div>
     <div class="bg-dark fixed-bottom">
-        <h5 strong class="mb-0">© <?php echo date('Y'); ?> - <a href="https://maiphamquanghuy.com">Mai Pham Quang Huy</a></h5>
+        <h5 strong class="mb-0">© <?php echo date('Y'); ?> - <a href="https://maiphamquanghuy.com">Mai Pham Quang Huy</a> - Nguyen Ngo</h5>
     </div>  
 
     <!-- Optional JavaScript -->

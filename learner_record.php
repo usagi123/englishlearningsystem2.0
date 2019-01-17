@@ -1,98 +1,140 @@
 <?php
-session_start();
-    
-include 'dbconfig.php';
+    session_start();
 
-if(!isset($_SESSION['loginid'])){
-    header("Location: login.php");
-}
+    include 'dbconfig.php';
 
-// database connection info
-$conn = mysqli_connect($hostname, $username, $password) or trigger_error("SQL", E_USER_ERROR);
-$db = mysqli_select_db($dbname, $conn) or trigger_error("SQL", E_USER_ERROR);
-
-// find out how many rows are in the table 
-$sql = "SELECT COUNT(*) FROM learner_record";
-$result = mysqli_query($sql, $conn) or trigger_error("SQL", E_USER_ERROR);
-$r = mysqli_fetch_row($result);
-$numrows = $r[0];
-
-// number of rows to show per page
-$rowsperpage = 10;
-// find out total pages
-$totalpages = ceil($numrows / $rowsperpage);
-
-// get the current page or set a default
-if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
-   // cast var as int
-   $currentpage = (int) $_GET['currentpage'];
-} else {
-   // default page num
-   $currentpage = 1;
-} // end if
-
-// if current page is greater than total pages...
-if ($currentpage > $totalpages) {
-   // set current page to last page
-   $currentpage = $totalpages;
-} // end if
-// if current page is less than first page...
-if ($currentpage < 1) {
-   // set current page to first page
-   $currentpage = 1;
-} // end if
-
-// the offset of the list, based on current page 
-$offset = ($currentpage - 1) * $rowsperpage;
-
-// get the info from the db 
-$sql = "SELECT id, timestarted FROM learner_record LIMIT $offset, $rowsperpage";
-$result = mysqli_query($sql, $conn) or trigger_error("SQL", E_USER_ERROR);
-
-// while there are rows to be fetched...
-while ($list = mysqli_fetch_assoc($result)) {
-   // echo data
-   echo $list['id'] . " : " . $list['timestarted'] . "<br />";
-} // end while
-
-/******  build the pagination links ******/
-// range of num links to show
-$range = 3;
-
-// if not on page 1, don't show back links
-if ($currentpage > 1) {
-   // show << link to go back to page 1
-   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=1'><<</a> ";
-   // get previous page num
-   $prevpage = $currentpage - 1;
-   // show < link to go back to 1 page
-   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$prevpage'><</a> ";
-} // end if 
-
-// loop to show links to range of pages around current page
-for ($x = ($currentpage - $range); $x < (($currentpage + $range) + 1); $x++) {
-   // if it's a valid page number...
-   if (($x > 0) && ($x <= $totalpages)) {
-      // if we're on current page...
-      if ($x == $currentpage) {
-         // 'highlight' it but don't make a link
-         echo " [<b>$x</b>] ";
-      // if not current page...
-      } else {
-         // make it a link
-         echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$x'>$x</a> ";
-      } // end else
-   } // end if 
-} // end for
-                 
-// if not on last page, show forward and last page links        
-if ($currentpage != $totalpages) {
-   // get next page
-   $nextpage = $currentpage + 1;
-    // echo forward link for next page 
-   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$nextpage'>></a> ";
-   // echo forward link for lastpage
-   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$totalpages'>>></a> ";
-} // end if
-/****** end build pagination links ******/
+    //Token like system
+    if(!isset($_SESSION['loginid'])){
+        header("Location: login.php");
+    } else if($_SESSION['level'] != 1){
+        header("Location: index.php"); //temporary redirect to this, later will redirect to request higher level user account
+    }
 ?>
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="./stylesheets/index.css">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script>
+            window.onscroll = function() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("myNav").style.background = "linear-gradient(rgba(20,20,20, .6), rgba(20,20,20, .5))";
+                    document.getElementById("myNav").style.transition = "background 2s ease 0s";
+                } else {
+                    document.getElementById("myNav").style.background = "transparent";
+                }
+            };
+        </script>
+        <title>English Learning System</title>
+    </head>
+    <body>
+        <div class="aloha">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="myNav">
+                <div class="container custom-nav">
+                    <a href="index.php" class="navbar-brand">English Learning System</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar7">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse justify-content-stretch" id="navbar7">
+                        <ul class="navbar-nav ml-auto">
+                            <!-- when admin login -->
+                            <?php if($_SESSION['level'] == 1):?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.php">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="randomword.php">Learning</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="listing.php">Listing</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="addnew.php">Add new</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="logout.php">Logout</a>
+                                </li>
+                            <!-- when user login -->
+                            <?php else: ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.php">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="randomword.php">Learning</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="logout.php">Logout</a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="container-fluid custom-title">
+            <div class="container">
+                <h1>Learner records list</h1>
+            </div>
+        </div>
+            
+        <div class="extra-padding-bottom-10px"></div>
+        <div class="container">
+            <?php require_once 'process.php'; ?>   
+            <?php if (isset($_SESSION['message'])): ?>
+                <div class="alert alert-<?=$_SESSION['msg_type']?> alert-dismissible fade show">
+                    <?php 
+                        echo $_SESSION['message']; 
+                        unset($_SESSION['message']);
+                    ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php endif ?>
+            <?php
+                $mysqli = new mysqli($hostname, $username, $password, $dbname, $port) or die(mysqli_error($mysqli));
+                $result = $mysqli->query("SELECT * FROM learner_record") or die($mysqli->error);
+                //pre_r($result);
+            ?>
+
+            <div class="extra-padding-bottom-10px"></div>
+
+                <div class="row justify-content-center">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>UserID</th>
+                                <th>WordID</th>
+                                <th>Time started</th>
+                                <th>Time ended</th>
+                            </tr>
+                        </thead>
+                <?php while ($row = $result->fetch_assoc()): ?>
+                        <tr>
+                           <td><?php echo $row['id']; ?></td>
+                           <td><?php echo $row['userid']; ?></td>
+                           <td><?php echo $row['wordid']; ?></td>
+                           <td><?php echo date("d-m-Y h:i:s",$row['timestarted']); ?></td>
+                           <td><?php echo date("d-m-Y h:i:s",$row['timended']); ?></td>
+                        </tr>
+                    <?php endwhile; ?>    
+                    </table>
+                </div>
+            <?php
+                function pre_r( $array ) {
+                    echo '<pre>';
+                    print_r($array);
+                    echo '</pre>';
+                }
+            ?>
+        </div>
+
+<?php include('includes/footer.php'); ?>    

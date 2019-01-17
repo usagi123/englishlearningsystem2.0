@@ -88,33 +88,41 @@
                 <div class="container-fluid post-preview left-button">
                     <h1>Introduction</h1>
                     <p>
-                        Student ID: s3618861 <br>
-                        Deployed link: https://maiphamquanghuy.com/ <br>
+                        Student ID: s3618861 && s3480522 <br>
                         Credentials: <br>
                             - Admin user: admin - admin <br>
                             - Normal user: user - user <br>
                             When register, new user will be listed into normal user <br>
-
                         - Login (/login.php): to prevent unauthorized users from access data and perform actions <br>
 
                         For admin account: <br>
                         - Home - index.php: to prevent unauthorized users from access data and perform actions <br>
-                        - Learning - randomword.php: I allow admin to see this page for admin to tweak their page. This page will display a single word take randomly from database. There will be a place for user to practice their pronounciation. User press record and allow website to use their microphone, then talk. After a bit, user will submit their result by pressing submit button. <br>
+                        - Learning 
+                            - randomword.php: I allow admin to see this page for admin to tweak their page. This page will display a single word take randomly from database.<br>
+                                - quiz: php: After press next to learn next word, user will have to do the quiz to test what they have learned. <br>
+                            - sequence.php: I allow admin to see this page for admin to tweak their page. This page will display a single word take from start to the end list of word from database.<br>
+                                - sequencequiz.php: After press next to learn next word, user will have to do the quiz to test what they have learned. <br>
                         - Listing - listing.php: list all words out <br>
                         - Add new - addnew.php: use the same form to handle both add new and update entity, based on the situation the title and navlink will change <br>
                         - Logout - logout.php: logout <br>
 
                         For user account: <br>
                         - Home - index.php: to prevent unauthorized users from access data and perform actions <br>
-                        - Learning - randomword.php: this page will display a single word take randomly from database. There will be a place for user to practice their pronounciation. User press record and allow website to use their microphone, then talk. After a bit, user will submit their result by pressing submit button. <br>
+                        - Learning 
+                            - randomword.php: I allow admin to see this page for admin to tweak their page. This page will display a single word take randomly from database.<br>
+                                - quiz: php: After press next to learn next word, user will have to do the quiz to test what they have learned. <br>
+                            - sequence.php: I allow admin to see this page for admin to tweak their page. This page will display a single word take from start to the end list of word from database.<br>
+                                - sequencequiz.php: After press next to learn next word, user will have to do the quiz to test what they have learned. <br>
                         - Logout - logout.php: logout <br>
 
+                        AWS Lambda: <br>
+                        - Rest API link to expose words: https://9kj8sijy6e.execute-api.ap-southeast-1.amazonaws.com/dev/words <br>
+                        - Rest API link to expose learner records: https://9kj8sijy6e.execute-api.ap-southeast-1.amazonaws.com/dev/learner_records <br>
+
                         What I had done: <br>
-                        - Register system with password stored on database was salted 12. <br>
+                        - Register system with password stored on database was salted 12 <br>
                         - Login system that can prevent sql injection <br>
                         - CRUD words <br>
-                        - A voice regconition for users to practice their pronounciation <br>
-                        - SSL by adding my ELB to CNAME on CloudFlare. I choose CF as I already added their name servers on my registar. <br>
                     </p>
                 </div>
             </div>
