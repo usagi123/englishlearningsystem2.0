@@ -14,9 +14,6 @@
 
     $mysqli = new mysqli($hostname, $username, $password, $dbname, $port) or die(mysqli_error($mysqli));
 
-    $recordSQL = "INSERT INTO learner_record (userid, wordid, timestarted, timended) VALUES('$userid', '$questionid', '$timestarted', '$timeended')";
-    $mysqli->query($recordSQL) or die($mysqli->error);
-
     $quizDetailsSQL = "SELECT * FROM questions WHERE id = $questionid";
     $quizDetailsResult = mysqli_query($mysqli, $quizDetailsSQL);
     $row = mysqli_fetch_assoc($quizDetailsResult);
@@ -40,26 +37,14 @@
         array_push($array, $randomAnswer);
         array_push($array_repeat_id, $randomId);
     }
-
-    // $randomOne = mysqli_query($mysqli, $quizRandomAnswerSQL);
-    // $rowRandomOne = mysqli_fetch_assoc($randomOne);
-    // $randomAnswerOne = $rowRandomOne['meaning'];
-
-    // $randomTwo = mysqli_query($mysqli, $quizRandomAnswerSQL);
-    // $rowRandomTwo = mysqli_fetch_assoc($randomTwo);
-    // $randomAnswerTwo = $rowRandomTwo['meaning'];
-
-    // $randomThree = mysqli_query($mysqli, $quizRandomAnswerSQL);
-    // $rowRandomThree = mysqli_fetch_assoc($randomThree);
-    // $randomAnswerThree = $rowRandomThree['meaning'];
-
-    // array_push($array, $quizMeaning, $randomAnswerOne, $randomAnswerTwo, $randomAnswerThree);
     shuffle($array);
 
     $numberofrows = $_SESSION['numberofrows'];
 
     if (isset($_POST['submit'])){
         $answer = (string) $_POST['answer'];
+        $recordSQL = "INSERT INTO learner_record (userid, wordid, timestarted, timended) VALUES('$userid', '$questionid', '$timestarted', '$timeended')";
+        $mysqli->query($recordSQL) or die($mysqli->error);
         if ($answer == $quizMeaning) {
             header("Location: sequence.php");
             exit();

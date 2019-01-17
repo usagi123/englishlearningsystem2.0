@@ -3,6 +3,9 @@
 
     include 'dbconfig.php';
 
+    if(isset($_SESSION['timestarted']) && !empty($_SESSION['timestarted'])) {
+        unset($_SESSION['timestarted']);
+    }
     $_SESSION['timestarted'] = time();
 
     $mysqli = new mysqli($hostname, $username, $password, $dbname, $port) or die(mysqli_error($mysqli));
